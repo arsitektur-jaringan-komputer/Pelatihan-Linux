@@ -8,8 +8,8 @@
 
 1. [Package dan Source Control](#package-dan-source-control)
 2. [Process](#apa-itu-process)
-3. [Perintah Terkait Process](#perintah-terkait-process)
-4. [Resources Monitoring](#resources-monitoring)
+3. [Foreground vs Background Process](#foreground-vs-background-process)
+4. [Perintah Terkait Process](#perintah-terkait-process)
 
 ## Package dan Source Control
 
@@ -64,8 +64,89 @@ Beberapa command yang dapat dilakukan untuk memanage package pada linux yang ser
 
   Selain command command diatas masih banyak lagi command yang dapat digunakan untuk melihatnya dapat menggunakan command `apt-get --help` atau mengunjungi [link berikut](https://www.tecmint.com/useful-basic-commands-of-apt-get-and-apt-cache-for-package-management/).
 
+Selain menggunakan `apt-get`, package juga dapat diinstal menggunakan command `dpkg`. Command ini digunakan untuk menginstal package yang sudah terdownload. Contohnya adalah `dpkg -i nginx.deb`. dengan syarat kita sudah memiliki file yang akan diinstal terlebih dahulu beda dengan `apt-get` yang akan mengambil package dari repository. untuk mengetahui command apa saja yang dapat dilakukan dengan `dpkg` dapat menggunakan command `dpkg --help`.
+
 ## Apa Itu Process?
+
+Process adalah suatu kode program yang sedang berjalan di memory. Setiap process memiliki ID yang unik yang disebut dengan PID. PID ini digunakan untuk mengidentifikasi process yang sedang berjalan. Untuk Lebih jelasnya dapat dilihat pada gambar dibawah ini :
+
+![Linux Process](./assets/linux-process.png)
+
+Berikut adalah daur hidup dari suatu process pada sistem operasi linux :
+
+Pada state `Created` process belum dijalankan oleh kernel. Setelah dijalankan oleh kernel process akan berada pada state `Running`. Setelah process selesai dijalankan oleh kernel process akan berada pada state `Terminated`. Setelah process berada pada state Terminated, process akan dihapus dari memory dan akan berada pada state Zombie.
+
+- `Zombie process` adalah process yang sudah selesai dijalankan oleh kernel namun masih ada di memory. Zombie process ini akan dihapus dari memory setelah parent processnya memanggil wait() system call.
+
+- Process juga memiliki parent process yang merupakan process yang membuat process tersebut. Process yang dibuat oleh parent process disebut dengan `child process`.
+
+- Process yang tidak memiliki parent process disebut dengan `init process`. Init process ini adalah process pertama yang dijalankan oleh kernel saat booting. Init process ini memiliki PID 1.
+
+## Foreground vs Background Process
+
+Berdasarkan cara untuk proses dijalankan, proses terbagi menjadi 2 yaitu foreground process dan background process.
+
+- `Foreground process` adalah proses yang dijalankan secara interaktif. Contohnya adalah saat kita menjalankan command `apt update` pada terminal. Saat menjalankan command tersebut terminal akan terblokir dan tidak bisa menjalankan command lainnya sampai command tersebut selesai dijalankan.
+
+- `Background process` adalah proses yang dijalankan secara non-interaktif. Contohnya adalah saat kita menjalankan command `apt update &` pada terminal. Saat menjalankan command tersebut terminal tidak akan terblokir dan bisa menjalankan command lainnya. Untuk melihat process yang sedang berjalan dapat menggunakan command `jobs`.
+
+![foreground vs background](./assets/sleep.jpg)
+
+Pada gambar diatas terlihat command `sleep` dijalankan pada foreground maka terminal akan terblokir dan tidak bisa menjalankan command lainnya. Sedangkan pada gambar dibawah command `sleep` dijalankan pada background maka terminal tidak akan terblokir dan bisa menjalankan command lainnya dan dapat dilihat dengan perintah `jobs`.
+
+Namun terkadang `&` tetap berjalan di foreground, solusinya dapat menggunakan `nohup`, `nohup` adalah command yang digunakan untuk menjalankan command pada background dan tidak akan terpengaruh oleh SIGHUP (signal hangup) yang dikirimkan saat terminal ditutup. Contohnya adalah `nohup ping &`. namun nohup perlu diinstal terlebih dahulu dengan command `sudo apt-get install coreutils`.
 
 ## Perintah Terkait Process
 
-## Resources Monitoring
+1. Berikut adalah beberapa perintah yang dapat digunakan untuk melihat process yang sedang berjalan :
+
+- `ps` dan `ps aux`
+
+  Command ini digunakan untuk melihat process yang sedang berjalan. Command yang paling sering digunakan adalah `ps -aux`. dengan arti argumen a untuk melihat semua process, u untuk menampilkan informasi lebih ranci, dan x untuk melihat semua proses tanpa terikat oleh previlage user tertentu.
+
+  ![ps vs ps aux](./assets/ps-vs-psaux.jpg)
+
+- `pstree`
+
+  Dan ada juga command `pstree` yang digunakan untuk melihat process yang sedang berjalan dalam bentuk tree (terlihat hubungan parent dan child), namun harus diinstal terlebih dahulu dengan command `apt-get install pstree`.
+
+  ![pstree](./assets/pstree.jpg)
+
+2. berikut adalah beberapa perintah yang dapat digunakan untuk menghentikan process yang sedang berjalan :
+
+- `kill` dan `pkill`
+
+  Command ini digunakan untuk menghentikan process yang sedang berjalan. Command ini dapat digunakan dengan menggunakan PID. Contohnya adalah `kill -<nomor signal> 1234`, jika tidak menyebutkan nomor signalnya maka akan menggunakan signal 15 (SIGTERM). Sedangankan pkill dapat digunakan dengan menggunakan nama process. Contohnya adalah `pkill -<nomor signal> nginx`. Untuk informasi selngkapnya bisa gunakan command `kill --help` atau `pkill --help`.
+
+- `kill -l`
+
+  Command ini digunakan untuk melihat daftar signal yang dapat digunakan untuk menghentikan process.
+  ![list signal](./assets/kill-l.jpg)
+  Untuk lebih memahami setiap arti signal yang ada bisa mengunjungi [link berikut](https://www.man7.org/linux/man-pages/man7/signal.7.html).
+
+3.  Berikut adalah beberapa perintah yang dapat digunakan untuk memonitoring process yang sedang berjalan :
+
+- `top ` dan `htop`
+
+  Command ini dapat digunakan untuk memonitoring dan menghentikan process yang sedang berjalan. Namun untuk htop haru diinstal terlebih dahulu dengan command `apt-get install htop` sedangkan top sudah terinstall secara default.
+
+  ![top](./assets/top.jpg)
+  ![htop](./assets/htop.jpg)
+
+- `lsof`
+
+  Command ini digunakan untuk melihat file mana yang diakses oleh suatu process. Contohnya adalah `lsof -p 1` dengan arti -p untuk melihat file yang sedang digunakan oleh process dengan PID 1, atau bisa menggunakan argumen -c untuk melihat file yang sedang digunakan oleh process dengan nama tertentu seperti `lsof -c docker`.
+
+  ![lsof](./assets/lsof.jpg)
+
+- `netstat`
+
+  Command ini digunakan untuk melihat port yang sedang digunakan oleh suatu process. Contohnya adalah `netstat -tulpn` dengan arti -t untuk melihat port TCP, -u untuk melihat port UDP, -l untuk melihat port yang sedang mendengarkan, -p untuk melihat process yang sedang menggunakan port tersebut, dan -n untuk melihat port dalam bentuk angka.
+
+  ![nestat](./assets/netstat.jpg)
+
+- `whereis` dan `which`
+
+  Command `which` digunakan untuk menemukan lokasi eksekusi dari suatu perintah. Sedangkan `whereis` lebih detail yaitu dapat digunakan untuk menemukan lokasi eksekusi, source code, dan manual dari suatu perintah. Contohnya adalah `which ls` dan `whereis ls`. jika ingin tahu argumen apa saja yang tersedia untuk `whereis` dapat menggunakan command `whereis --help`.
+
+  ![which vs whereis](./assets/which-vs-whereis.jpg)
