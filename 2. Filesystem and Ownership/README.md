@@ -201,7 +201,7 @@ Untuk menjelajahi filesystem, kita bisa menggunakan beberapa commands atau perin
 
 #### 3. cd
 
-`change directory`. Digunakan untuk pindah ke directory lain. Syntax-nya adalah `cd [namadirectory]`. Misalnya kita sedang berada di directory /home/pelatihan dan ingin berpindah ke directory `/usr/share`. Maka command yang kita gunakan adalah `cd /usr/share`.
+`change directory`. Digunakan untuk pindah ke directory lain. Syntax-nya adalah `cd <nama_directory>`. Misalnya kita sedang berada di directory /home/pelatihan dan ingin berpindah ke directory `/usr/share`. Maka command yang kita gunakan adalah `cd /usr/share`.
 
 Contoh lain:
 
@@ -230,6 +230,16 @@ $ tree
 └── folder2
     ├── file3.py
     └── file4.c
+```
+
+Parameter yang bisa digunakan, misalnya `L` untuk level direktori. Untuk levelnya mulai dari 1 sampai level maksimal, contoh:
+
+```bash
+tree -L 1 <nama_directory>
+```
+
+```bash
+tree -L 1 /
 ```
 
 ![tree command](assets/tree.png)
