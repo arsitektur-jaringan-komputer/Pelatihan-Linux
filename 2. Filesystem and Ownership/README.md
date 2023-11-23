@@ -212,6 +212,28 @@ Contoh lain:
 
 ![cd command](assets/cd.gif)
 
+##### 4. tree
+
+Digunakan untuk menampilkan list directory. Untuk menggunakan command ini, kita harus meng-install-nya terlebih dahulu dengan command:
+
+```bash
+sudo apt install tree
+```
+
+```bash
+
+$ tree
+.
+├── folder1
+│   ├── file1.txt
+│   └── file2.txt
+└── folder2
+    ├── file3.py
+    └── file4.c
+```
+
+![tree command](assets/tree.png)
+
 ## Manajemen User dan Group
 
 ### Referensi
