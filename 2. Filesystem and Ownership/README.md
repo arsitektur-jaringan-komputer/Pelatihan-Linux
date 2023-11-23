@@ -183,4 +183,40 @@ Jika kita ingin belajar Linux lebih mendalam, hal yang paling dasar untuk dipaha
 | /tmp                | Temporary files, direktori yang digunakan untuk menyimpan data sementara. Isi dari direktori ini dibersihkan setiap kali sistem boot.|
 | /root               |Ini bukan file system root (/). Ini adalah direktori home untuk user.|
 
+### Explore Filesystem
+
+Untuk menjelajahi filesystem, kita bisa menggunakan beberapa commands atau perintah:
+
+#### 1. ls
+
+`list`. Untuk menampilkan list atau daftar file-file apa saja yang ada disuatu directory. Parameter yang sering dipakai pada perintah ls adalah `-a`, `-l`, `-t`, `-h`, dan `-r`. Parameter digunakan untuk menentukan output yang kita inginkan. Parameter bisa digabungkan, dan urutan letak parameter tidak memengaruhi hasil.
+
+![ls command](assets/ls.gif)
+
+#### 2. pwd
+
+`print working directory`. Untuk mengetahui di directory mana kita berada sekarang.
+
+![pwd command](assets/pwd.png)
+
+#### 3. cd
+
+`change directory`. Digunakan untuk pindah ke directory lain. Syntax-nya adalah `cd [namadirectory]`. Misalnya kita sedang berada di directory /home/pelatihan dan ingin berpindah ke directory `/usr/share`. Maka command yang kita gunakan adalah `cd /usr/share`.
+
+Contoh lain:
+
+- `cd` atau `cd ~` untuk pindah ke directory home user
+- `cd /` untuk pindah ke directory root
+- `cd ..` untuk pindah ke parent directory dari directory sekarang
+- `cd -` untuk kembali ke working directory sebelumnya
+
+![cd command](assets/cd.gif)
+
 ## Manajemen User dan Group
+
+### Referensi
+
+- [Classic SysAdmin: The Linux Filesystem Explained by linuxfoundation.org](https://www.linuxfoundation.org/blog/blog/classic-sysadmin-the-linux-filesystem-explained)
+- [An introduction to Linux filesystems by opensource.com](https://opensource.com/life/16/10/introduction-linux-filesystems)
+- [Guide to Linux Filesystems by baeldung.com](https://www.baeldung.com/linux/filesystems)
+- [Linux File System by javatpoint.com](https://www.javatpoint.com/linux-file-system)
