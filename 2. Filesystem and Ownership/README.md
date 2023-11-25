@@ -6,23 +6,21 @@
 
 ## Table of Contents
 
-1. [Interaksi Filesystem](#interaksi-filesystem)
+1. [Filesystem](#filesystem)
 2. [Struktur Direktori](#struktur-direktori)
 3. [Manajemen User dan Group](#manajemen-user-dan-group)
 
-## Interaksi Filesystem
+## Filesystem
 
-Linux Filesystem secara singkat adalah kumpulan terstruktur dari file-file pada partisi. Partisi adalah segmen dari media penyimpanan dan berisi data-data tertentu.
+Filesystem mendeskripsikan data yang kita punya. Dengan filesystem kita bisa letak dari suatu file atau direktrori, akses terhadap suatu data. Tanpa Filesystem, kita tidak akan mengetahui di mana sesuatu disimpan, di mana segala sesuatu dimulai atau berakhir.
 
-Linux filesystem biasanya terdiri dari:
+### Linux Filesystem
 
-- Root directory (/)
-- Format dari storage at(EXT3, EXT4, BTRFS, XFS dan lain-lain)
-- Format filesystem.
+Linux filesystem umumnya merupakan lapisan bawaan sistem operasi berbasis Linux yang digunakan untuk menangani pengelolaan data penyimpanan. Filesystem membantu untuk mengatur file pada penyimpanan disk, mengelola nama file, ukuran file, tanggal pembuatan, dan banyak lagi informasi tentang file.
 
 ### Struktur Filesystem
 
-![Linux Filesystem](assets/Linux-two-part-filesystem-software-implementation.png)
+<!-- ![Linux Filesystem](assets/Linux-two-part-filesystem-software-implementation.png) -->
 
 Sistem berkas Linux memiliki struktur berkas hierarkis yang terdiri dari direktori utama (root directory) dan subdirektori-subdirektori di bawahnya. Semua direktori lain dapat diakses dari direktori utama. Biasanya, satu partisi hanya memiliki satu sistem berkas, tetapi dapat juga memiliki lebih dari satu sistem berkas.
 
@@ -86,7 +84,7 @@ Filesystem Ext adalah singkatan dari Extended File System. Saat ini digunakan un
 
     - Kelebihan:
 
-      `Dukungan untuk snapshot` - Snapshot memungkinkan Anda untuk mengambil salinan sistem berkas pada saat tertentu. Fitur ini berguna untuk pencadangan dan pemulihan.
+      `Dukungan untuk snapshot` - Snapshot memungkinkan kita untuk mengambil salinan sistem berkas pada saat tertentu. Fitur ini berguna untuk pencadangan dan pemulihan.
 
       `Skalabilitas yang baik` - JFS dapat menangani sistem berkas yang sangat besar dengan baik.
 
@@ -168,7 +166,7 @@ Jika kita ingin belajar Linux lebih mendalam, hal yang paling dasar untuk dipaha
 | **Directory**       | **Deskripsi** |
 |---------------------|---------------|
 | / (root filesystem) | Top-level directory, Partisi dimana diletakkan "/" (root system) akan menjadi direktori sistem atau partisi pokok. Hanya bisa diakses oleh user root atau super user.|
-| /bin                | User binaries, memuat program arahan yang merupakan sebagian dari sistem operasi Linux. Direktori ini meng-handle perintah standar Linux, seperti cd, ls, cp, dll.|
+| /bin                | User binaries, memuat program arahan yang merupakan sebagian dari sistem operasi Linux. Direktori ini meng-handle perintah stkitar Linux, seperti cd, ls, cp, dll.|
 | /etc                | Configuration files, direktori yang berisi file-file konfigurasi sistem. Selain itu, juga berisi file yang dijalankan ketika start up.|
 | /sbin               | System binaries, memuat file administration yang dapat diakses seperti fdisk, shutdown, reboot, dll.|
 | /usr                | User programs, direktori yang berisi file-file binary, libraries, dokumentasi, dan source code dari sistem.|
@@ -186,6 +184,8 @@ Jika kita ingin belajar Linux lebih mendalam, hal yang paling dasar untuk dipaha
 ### Explore Filesystem
 
 Untuk menjelajahi filesystem, kita bisa menggunakan beberapa commands atau perintah:
+
+### Navigation Command
 
 #### 1. ls
 
@@ -244,7 +244,51 @@ tree -L 1 /
 
 ![tree command](assets/tree.png)
 
+### Manipulation Command
+
+#### 1. cp
+
+`copy`. Sesuai namanya maka command ini bertugas untuk copy (salin) file atau direktori.
+
+#### 2. mv
+
+`move`. Digunakan untuk memindahkan suatu file atau direktori secara permanen. Command `mv` juga bisa digunakan untuk me-rename file atau direktori.
+
+## Linux File Ownership
+
+![traffic-light](assets/go-green-traffic-light.jpg)
+
+<!-- Meskipun sudah ada banyak fitur keamanan yang baik yang dibangun dalam sistem berbasis Linux, satu potensi kerentanan yang sangat penting dapat terjadi ketika akses lokal diberikan – – yaitu masalah berbasis izin file yang diakibatkan oleh pengguna yang tidak memberikan izin yang benar pada file dan direktori. -->
+
+Adalah inti model keamanan yang digunakan oleh sistem Linux. Mereka menentukan siapa yang dapat mengakses file dan direktori pada sistem dan bagaimana caranya.
+
+Setiap sistem Linux memiliki tiga jenis pemilik:
+
+1. User: User atau pengguna adalah orang yang membuat file. Secara default, siapa pun yang membuat file akan menjadi pemilik file tersebut. Pengguna dapat membuat, menghapus, atau memodifikasi file.
+
+2. Group: Sebuah grup dapat berisi banyak pengguna. Semua pengguna atau user yang tergabung dalam grup memiliki izin akses yang sama untuk suatu file.
+
+3. Other: Siapa pun yang memiliki akses ke file selain pengguna dan grup masuk dalam kategori lainnya.
+
+User dan Group dikelola secara lokal di `/etc/psswd` atau `/etc/group`.
+
+Untuk mengecek User dan Group kita bisa menggunakan command `ls -l`
+
+![ls -l](assets/ls%20-l.png)
+
+Setiap file dan direktori di sistem UNIX/Linux memiliki 3 permission atau izin sebagi berikut.
+
+- `Read` - Izin ini memberi kita wewenang untuk membuka dan membaca file.
+- `Write` - Izin write atau menulis memberi kita wewenang untuk mengubah konten file. Izin menulis pada direktori memberi kita wewenang untuk menambah, menghapus, dan mengganti nama file yang disimpan dalam direktori.
+- `Execute` - Di Windows, program yang dapat dieksekusi biasanya memiliki ekstensi “.exe” dan dapat kita jalankan dengan mudah. Di Unix/Linux, kita tidak dapat menjalankan program kecuali izin eksekusi telah ditetapkan. Jika izin eksekusi tidak disetel, kita mungkin masih dapat melihat/memodifikasi kode program (asalkan izin read & write disetel), tetapi tidak dapat menjalankannya.
+
+![directory](assets/dir.png)
+
 ## Manajemen User dan Group
+
+
+
+
 
 ### Referensi
 
@@ -252,3 +296,4 @@ tree -L 1 /
 - [An introduction to Linux filesystems by opensource.com](https://opensource.com/life/16/10/introduction-linux-filesystems)
 - [Guide to Linux Filesystems by baeldung.com](https://www.baeldung.com/linux/filesystems)
 - [Linux File System by javatpoint.com](https://www.javatpoint.com/linux-file-system)
+- [Classic SysAdmin: Understanding Linux File Permissions by linuxfoundation.org](https://www.linuxfoundation.org/blog/blog/classic-sysadmin-understanding-linux-file-permissions)
