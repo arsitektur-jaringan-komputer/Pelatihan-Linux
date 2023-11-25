@@ -254,13 +254,15 @@ tree -L 1 /
 
 `move`. Digunakan untuk memindahkan suatu file atau direktori secara permanen. Command `mv` juga bisa digunakan untuk me-rename file atau direktori.
 
-## Linux File Ownership
+## Linux File Permissions and Ownerships
 
 ![traffic-light](assets/go-green-traffic-light.jpg)
 
-<!-- Meskipun sudah ada banyak fitur keamanan yang baik yang dibangun dalam sistem berbasis Linux, satu potensi kerentanan yang sangat penting dapat terjadi ketika akses lokal diberikan – – yaitu masalah berbasis izin file yang diakibatkan oleh pengguna yang tidak memberikan izin yang benar pada file dan direktori. -->
+Secara desain, Linux adalah sistem operasi multi-user. Dalam sistem perusahaan, akan ada banyak pengguna yang mengakses sistem yang sama. Namun jika ada pengguna yang bisa mengakses dan memodifikasi seluruh file milik pengguna lain atau file sistem, hal ini tentu akan menimbulkan risiko keamanan.
 
-Adalah inti model keamanan yang digunakan oleh sistem Linux. Mereka menentukan siapa yang dapat mengakses file dan direktori pada sistem dan bagaimana caranya.
+Inilah sebabnya mengapa Linux memiliki langkah-langkah keamanan. Hal ini agar memastikan bahwa file atau direktori dapat diakses, dimodifikasi atau dijalankan (dieksekui) hanya oleh pengguna yang diinginkan.
+
+### File ownership
 
 Setiap sistem Linux memiliki tiga jenis pemilik:
 
@@ -276,16 +278,53 @@ Untuk mengecek User dan Group kita bisa menggunakan command `ls -l`
 
 ![ls -l](assets/ls%20-l.png)
 
-Setiap file dan direktori di sistem UNIX/Linux memiliki 3 permission atau izin sebagi berikut.
+Setiap file dan direktori di sistem UNIX/Linux memiliki 3 tipe permission atau izin sebagi berikut.
 
 - `Read` - Izin ini memberi kita wewenang untuk membuka dan membaca file.
 - `Write` - Izin write atau menulis memberi kita wewenang untuk mengubah konten file. Izin menulis pada direktori memberi kita wewenang untuk menambah, menghapus, dan mengganti nama file yang disimpan dalam direktori.
 - `Execute` - Di Windows, program yang dapat dieksekusi biasanya memiliki ekstensi “.exe” dan dapat kita jalankan dengan mudah. Di Unix/Linux, kita tidak dapat menjalankan program kecuali izin eksekusi telah ditetapkan. Jika izin eksekusi tidak disetel, kita mungkin masih dapat melihat/memodifikasi kode program (asalkan izin read & write disetel), tetapi tidak dapat menjalankannya.
 
+Simbol dari masing-masing permission:
+
+- r – Read
+- w – Write
+- x – Execute
+
+![file type](assets/file1.png)
+
 ![directory](assets/dir.png)
 
 ## Manajemen User dan Group
 
+### Membuat User
+
+Di Linux ada beberapa command yang bisa kita gunakan untuk membuat user baru, yaitu:
+
+#### 1. useradd
+
+Command ini sangat sederhana, sehingga diperlukan parameter tambahan untuk menyiapkan akun sepenuhnya.
+
+```bash
+sudo useradd ajk
+```
+
+```bash
+sudo useradd -d /home/ajk -m -s/bin/bash ajk && passwd ajk
+```
+
+Karena cukup sederhana jadi kita poerlu menambahkan beberapa parameter, `-d` untuk menambahkan direktori di baru di `/home`, `-s` default yang akan digunakan, `passwd` untuk mengatur kata sandi dari user yang dibuat.
+
+#### 2. adduser
+
+### Membuat Group
+
+Untuk membuat group baru di Linux bisa menggunakan command `groupadd`:
+
+```bash
+sudo groupadd pelatihan
+```
+
+![adduser](assets/adduser.png)
 
 
 
