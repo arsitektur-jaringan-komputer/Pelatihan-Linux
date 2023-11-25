@@ -19,7 +19,7 @@ Pada masa-masa awal Linux, program hanya didistribusikan sebagai kode sumber, be
 
   package adalah suatu unit perangkat lunak yang telah dikemas bersama dengan informasi tambahan yang diperlukan untuk instalasi dan manajemen perangkat lunak tersebut. Contohnya adalah pacakge `.deb` jika di distro debian dan `.exe` jika pada windows. Package ini berisi file yang dibutuhkan oleh user untuk menjalankan suatu program. File yang dibutuhkan oleh user untuk menjalankan suatu program ini disebut dengan `binary file`. Binary file ini berisi kode program yang sudah dikompilasi. Kode program yang sudah dikompilasi ini akan dijalankan oleh kernel. Kernel adalah bagian dari sistem operasi yang bertugas untuk mengatur semua sumber daya yang ada pada komputer.
 
-  perbedaan package pada linux dan windows adalah pada linux package yang diinstal akan disimpan pada path `/usr/bin` sedangkan pada windows package yang diinstal akan disimpan pada path `C:\Program Files`. Pada linux package yang diinstal akan disimpan pada path `/usr/bin` karena pada linux semua file yang dibutuhkan oleh user akan disimpan pada path `/usr/bin` sedangkan pada windows package yang diinstal akan disimpan pada path `C:\Program Files` karena pada windows semua file yang dibutuhkan oleh user akan disimpan pada path `C:\Program Files`.
+  perbedaan package pada linux dan windows adalah pada linux package yang diinstal akan disimpan pada path `/usr/bin` sedangkan pada windows package yang diinstal akan disimpan pada path `C:\Program Files`. Untuk melihat package apa saja yang sudah terinstal pada linux dapat menggunakan command `dpkg -l` atau `apt list --installed`.
 
 - Package Manager
 
