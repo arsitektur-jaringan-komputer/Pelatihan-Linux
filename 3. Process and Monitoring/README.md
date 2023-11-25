@@ -15,11 +15,19 @@
 
 Pada masa-masa awal Linux, program hanya didistribusikan sebagai kode sumber, bersama dengan halaman manual yang diperlukan, file konfigurasi yang diperlukan, dan banyak lagi. Saat ini, sebagian besar distributor Linux menggunakan program bawaan atau kumpulan program yang disebut package, yang disajikan kepada pengguna yang siap untuk diinstal pada distribusi tersebut. Berikut beberapa kkonsep dalam package management yang perlu diketahui :
 
+- Repository
+
+  Repositori adalah penyimpanan sentral tempat paket perangkat lunak disimpan dan dikelola. Repositori ini berisi berbagai perangkat lunak yang telah dikompilasi untuk digunakan pada distribusi Linux tertentu. Repository ini yang nantinya akan diakses oleh package manager untuk menginstal package yang dibutuhkan. List konfigurasi dapat dikonfigurasi pada path `/etc/apt/sources.list` jika pada distro ubuntu. Contohnya ini adalah [repository ubuntu lokal yang ada di Indonesia](https://nugi.biz/2022/03/22/repository-lokal-indonesia-ubuntu-22-04-lts-jammy-jellyfish.xhtml).
+
 - Package
 
   package adalah suatu unit perangkat lunak yang telah dikemas bersama dengan informasi tambahan yang diperlukan untuk instalasi dan manajemen perangkat lunak tersebut. Contohnya adalah pacakge `.deb` jika di distro debian dan `.exe` jika pada windows. Package ini berisi file yang dibutuhkan oleh user untuk menjalankan suatu program. File yang dibutuhkan oleh user untuk menjalankan suatu program ini disebut dengan `binary file`. Binary file ini berisi kode program yang sudah dikompilasi. Kode program yang sudah dikompilasi ini akan dijalankan oleh kernel. Kernel adalah bagian dari sistem operasi yang bertugas untuk mengatur semua sumber daya yang ada pada komputer.
 
   perbedaan package pada linux dan windows adalah pada linux package yang diinstal akan disimpan pada path `/usr/bin` sedangkan pada windows package yang diinstal akan disimpan pada path `C:\Program Files`. Untuk melihat package apa saja yang sudah terinstal pada linux dapat menggunakan command `dpkg -l` atau `apt list --installed`.
+
+- Dependency
+
+  Dependency adalah suatu package yang dibutuhkan oleh package lainnya untuk bisa berjalan. Contohnya adalah package `libssl-dev` yang dibutuhkan oleh package `nginx` untuk bisa berjalan. Package `libssl-dev` ini disebut dengan package dependensi. Package dependensi ini akan diinstal secara otomatis oleh package manager jika package utama diinstal. Untuk melihat package apa saja yang dibutuhkan oleh package lainnya dapat menggunakan command `apt-cache depends <package-name>`.
 
 - Package Manager
 
@@ -29,13 +37,13 @@ Pada masa-masa awal Linux, program hanya didistribusikan sebagai kode sumber, be
 
   contohnya dpkg pada debian hanya bisa menginstal package .deb yang sudah tersedia pada host saja, sedangkan apt bisa menginstal package .deb dan juga bisa menginstal package dependensinya dari repository. Package manager yang berada diatas package manager lainnya disebut dengan high-level package manager. Package manager yang berada dibawah package manager lainnya disebut dengan low-level package manager.
 
-- Repository
+  Selain itu ada pacakage manager yang compatible di multi distro linux seperti `snap` dan `flatpak`. Snap dan flatpak ini berbeda dengan package manager lainnya karena package yang diinstal menggunakan snap dan flatpak akan diisolasi dari package lainnya. Snap dan flatapak ini sudah tersedia pada repository ubuntu. Sehingga bisa langsung diinstal dengan command `apt-get install snapd` dan `apt-get install flatpak`.
 
-  Repositori adalah penyimpanan sentral tempat paket perangkat lunak disimpan dan dikelola. Repositori ini berisi berbagai perangkat lunak yang telah dikompilasi untuk digunakan pada distribusi Linux tertentu. Repository ini yang nantinya akan diakses oleh package manager untuk menginstal package yang dibutuhkan. List konfigurasi dapat dikonfigurasi pada path `/etc/apt/sources.list` jika pada distro ubuntu. Contohnya ini adalah [repository ubuntu lokal yang ada di Indonesia](https://nugi.biz/2022/03/22/repository-lokal-indonesia-ubuntu-22-04-lts-jammy-jellyfish.xhtml).
+  Contohnya adalah jika kita menginstal package `nginx` menggunakan apt, maka package `nginx` akan diinstal pada path `/usr/bin/nginx` dan package `nginx` ini bisa diakses oleh package lainnya. Sedangkan jika kita menginstal package `nginx` menggunakan snap, maka package `nginx` akan diinstal pada path `/snap/bin/nginx` dan package `nginx` ini tidak bisa diakses oleh package lainnya. Untuk melihat package apa saja yang sudah terinstal menggunakan snap dapat menggunakan command `snap list`.
 
-- Dependency
+  Sedangkan Flatpak ini berbeda dengan snap karena package yang diinstal menggunakan flatpak akan diinstal pada path `/var/lib/flatpak` dan package ini juga tidak bisa diakses oleh package lainnya. Untuk melihat package apa saja yang sudah terinstal menggunakan flatpak dapat menggunakan command `flatpak list`.
 
-  Dependency adalah suatu package yang dibutuhkan oleh package lainnya untuk bisa berjalan. Contohnya adalah package `libssl-dev` yang dibutuhkan oleh package `nginx` untuk bisa berjalan.
+  ![snap vs flatpak](./assets/snap-vs-flatpak.jpg)
 
 <div align=center>
 
