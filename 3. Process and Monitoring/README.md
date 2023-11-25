@@ -17,7 +17,9 @@ Pada masa-masa awal Linux, program hanya didistribusikan sebagai kode sumber, be
 
 - Package
 
-  Package adalah suatu unit perangkat lunak yang telah dikemas bersama dengan informasi tambahan yang diperlukan untuk instalasi dan manajemen perangkat lunak tersebut. Contohnya adalah pacakge `.deb` jika di distro debian dan `.exe` jika pada windows.
+  package adalah suatu unit perangkat lunak yang telah dikemas bersama dengan informasi tambahan yang diperlukan untuk instalasi dan manajemen perangkat lunak tersebut. Contohnya adalah pacakge `.deb` jika di distro debian dan `.exe` jika pada windows. Package ini berisi file yang dibutuhkan oleh user untuk menjalankan suatu program. File yang dibutuhkan oleh user untuk menjalankan suatu program ini disebut dengan `binary file`. Binary file ini berisi kode program yang sudah dikompilasi. Kode program yang sudah dikompilasi ini akan dijalankan oleh kernel. Kernel adalah bagian dari sistem operasi yang bertugas untuk mengatur semua sumber daya yang ada pada komputer.
+
+  perbedaan package pada linux dan windows adalah pada linux package yang diinstal akan disimpan pada path `/usr/bin` sedangkan pada windows package yang diinstal akan disimpan pada path `C:\Program Files`. Pada linux package yang diinstal akan disimpan pada path `/usr/bin` karena pada linux semua file yang dibutuhkan oleh user akan disimpan pada path `/usr/bin` sedangkan pada windows package yang diinstal akan disimpan pada path `C:\Program Files` karena pada windows semua file yang dibutuhkan oleh user akan disimpan pada path `C:\Program Files`.
 
 - Package Manager
 
@@ -35,7 +37,11 @@ Pada masa-masa awal Linux, program hanya didistribusikan sebagai kode sumber, be
 
   Dependency adalah suatu package yang dibutuhkan oleh package lainnya untuk bisa berjalan. Contohnya adalah package `libssl-dev` yang dibutuhkan oleh package `nginx` untuk bisa berjalan.
 
+<div align=center>
+
 ![Linux-package](./assets/linux-package.png)
+
+</div>
 
 Jadi kesimpulannya user linux akan menggunakan command package manager untuk menginstal package yang dibutuhkan. Package manager akan mengambil package yang dibutuhkan dari repository yang sudah dikonfigurasi sebelumnya. Package yang dibutuhkan tersebut bisa berupa package utama atau package dependensi. Package utama adalah package yang dibutuhkan oleh user untuk bisa berjalan. Package dependensi adalah package yang dibutuhkan oleh package utama untuk bisa berjalan.
 
@@ -70,7 +76,11 @@ Selain menggunakan `apt-get`, package juga dapat diinstal menggunakan command `d
 
 Process adalah suatu kode program yang sedang berjalan di memory. Setiap process memiliki ID yang unik yang disebut dengan PID. PID ini digunakan untuk mengidentifikasi process yang sedang berjalan. Untuk Lebih jelasnya dapat dilihat pada gambar dibawah ini :
 
+<div align=center>
+
 ![Linux Process](./assets/linux-process.png)
+
+</div>
 
 Berikut adalah daur hidup dari suatu process pada sistem operasi linux :
 
