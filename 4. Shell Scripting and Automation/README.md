@@ -454,7 +454,7 @@ echo "b-- = $((b--))"
 |    >     |      -gt       | Lebih dari              |
 |    >=    |      -ge       | Lebih dari sama dengan  |
 
-Operator relasional dapat digunakan dengan sintaks `(( $a > $b ))` atau menggunakan sintaks `` `[[ $a -gt $b ]]` `` jika dengan flag.
+Operator relasional dapat digunakan dengan sintaks `$(( $a > $b ))` atau menggunakan sintaks `` `[[ $a -gt $b ]]` `` jika dengan flag.
 
 ```sh
 #!/bin/bash
@@ -481,6 +481,78 @@ echo "a >= b : `[[ $a -ge $b ]] && echo '1' || echo '0'`"
 | !        | Logika NOT |
 
 Operator logika digunakan untuk menggabungkan dua atau lebih operator relasional.
+
+### Percabangan
+
+Dalam shell juga terdapat percabangan seperti pada bahasa pemrograman lainnya.
+
+Berikut adalah contoh percabangan dalam shell dan keluarannya.
+
+```sh
+#!/bin/bash
+
+a=10
+b=10
+
+if [[ $a -gt $b ]]
+then
+  echo 'a > b'
+elif [[ $a -lt $b ]]
+then
+  echo 'a < b'
+else
+  echo 'a == b'
+fi
+```
+
+![percabangan-1](assets/percabangan-1.png)
+
+### Perulangan
+
+Berikut adalah beberapa macam perulangan yang dapat digunakan dalam shell.
+
+#### Perulangan While
+
+Untuk menggunakan perulangan while dalam shell, dapat menggunakan contoh sintaks berikut.
+
+```sh
+#!/bin/bash
+
+i=0
+
+while [[ $i -lt 5 ]]
+do
+  echo $((i++))
+done
+```
+
+![while-1](assets/while-1.png)
+
+#### Perulangan For
+
+Untuk menggunakan perulangan for dalam shell, dapat menggunakan beberapa contoh sintaks berikut.
+
+```sh
+#!/bin/bash
+
+for i in 1 2 3 4 5
+do
+  echo $i
+done
+```
+
+![for-1](assets/for-1.png)
+
+```sh
+#!/bin/bash
+
+for (( i = 0; i < 5; i++ ))
+do
+  echo $i
+done
+```
+
+![for-2](assets/for-2.png)
 
 ## Cronjob
 
