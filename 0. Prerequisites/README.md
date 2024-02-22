@@ -17,7 +17,7 @@
 2. Lalu klik bagian download for windows: 
 
 <div align=center>
-    <img src="vmware_page.png">
+    <img src="assets/vmware_page.png">
 </div>
 
 3. Tunggu proses download hingga selesai
